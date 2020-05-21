@@ -27,20 +27,21 @@ export const store = new Vuex.Store({
             state.news = news;
         }
     },
-    actions: {
-        FETCH_NEWS(context){              // mutations에서 이에 접근하기 위해 context를 인자로 줘야한다.
+    actions: {     // { commit } 으로 써주면, 밑에서 바로commit으로 쓸수 있다.(context.commit 아닌)
+        FETCH_NEWS({ commit }){              // mutations에서 이에 접근하기 위해 context를 인자로 줘야한다.
             // (!!!) action에서 api호출를 한다!! 
 
             fetchProdsList()
-                .then(res => {
-                    console.log(res);
+                .then(({ data }) => {           // (!!!)  ({data}) 로 쓰면, data.data로 접근 하지 않고, 그냥 data로 뽑을 수 있다!! 
+                                                //         단, res로 쓰면 안되고, 무조건 data로 써야함!!1
+                    console.log(data);
                     // (!!!) 여기서 res를 state에 담으려면, 
                     //       this.state = res.data ( X ) => 안된다!!!
                     //       mutations에서 처리해야한다. 
 
                     // (!!!) mutatios에서 접근하려면, 또 여기서 context를 인자로 주고, context.commit('SET_MUTATIONS')를 해줘야 함!!.
-                    context.commit('SET_NEWS', res.data);           // -> context.commite() 으로 SET_NEWS에 res.data를 담아준다
-
+                    // context.commit('SET_NEWS', data);           // -> context.commite() 으로 SET_NEWS에 res.data를 담아준다
+                    commit('SET_NEWS', data);
                 })
                 .catch(err => {
                     console.log(err);
