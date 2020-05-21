@@ -1,26 +1,29 @@
 <template>
   <div>
-      {{ datas }}
+      {{ this.$store.state.news }}
   </div>
 </template>
 
 <script>
-import { fetchProdsList } from '../api/index.js';
+// import { fetchProdsList } from '../api/index.js';
 
 export default {
-    data() {
-        return {
-            datas: [],
-        }
-    },
+    // data() {
+    //     return {
+    //         datas: [],
+    //     }
+    // },
     created() {
-        fetchProdsList()
-            .then( res => {
-                this.datas = res.data.data;
-            })
-            .catch(err => {
-                console.log(err);
-            })
+
+        this.$store.dispatch('FETCH_NEWS');
+
+        // fetchProdsList()
+        //     .then( res => {
+        //         this.datas = res.data.data;
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     })
     },
 
 }
