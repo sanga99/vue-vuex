@@ -1,18 +1,19 @@
 <template>
   <div>
-      {{ this.$store.state.news }}
+      {{ news }}
+      <!-- computed 상(...mapState({...}) 안에) news 임. -->
   </div>
 </template>
 
 <script>
-// import { fetchProdsList } from '../api/index.js';
+import { mapState } from 'vuex';         // 
 
 export default {
-    // data() {
-    //     return {
-    //         datas: [],
-    //     }
-    // },
+    computed: {
+        ...mapState({
+            news: state => state.news
+        })
+    },
     created() {
 
         this.$store.dispatch('FETCH_NEWS');
