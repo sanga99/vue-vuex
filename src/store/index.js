@@ -17,6 +17,11 @@ export const store = new Vuex.Store({
     state: {
         news: []
     },
+    getters: {      // computed와 동일한 속성인데, 다만, getters는 store에 있는 것.
+        fetchedNews(state){
+            return state.news;     
+        }
+    },
     mutations: {
         // actions 에서 호출에온 api 데이터를 state로 옮겨주는 역할. 
 
